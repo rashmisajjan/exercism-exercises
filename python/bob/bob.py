@@ -1,12 +1,13 @@
 class Bob:
     "A lackadaisical teenager"
 
-    def hey(self, says_the_other):
+    @staticmethod
+    def hey(message):
         "Bob's response to anything"
-        if not says_the_other or says_the_other.isspace():
+        if not message.strip():
             return 'Fine. Be that way!'
-        elif says_the_other.isupper():
+        elif message.isupper():
             return 'Woah, chill out!'
-        elif says_the_other[-1] == '?':
+        elif message.endswith('?'):
             return 'Sure.'
         return 'Whatever.'
