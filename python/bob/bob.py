@@ -1,9 +1,9 @@
-class Bob:
-    "A lackadaisical teenager"
+class Bob(object):
+    """A lackadaisical teenager"""
 
     @staticmethod
     def hey(message):
-        "Bob's response to anything"
+        """Return Bob's response to anything."""
         if not message.strip():
             return 'Fine. Be that way!'
         elif message.isupper():
