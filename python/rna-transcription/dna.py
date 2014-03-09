@@ -3,7 +3,7 @@ import string
 DNA_RNA_TRANSLATION_TABLE = string.maketrans('GCTA', 'CGAU')
 
 
-class DNA:
+class DNA(object):
     """Represent a strand of DNA."""
 
     def __init__(self, dna_string):
