@@ -3,3 +3,6 @@
 *.pyc
 .venv
 .ropeproject
+
+*.hi
+*.o

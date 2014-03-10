@@ -7,3 +7,4 @@ toRNA = map f
         f 'C' = 'G'
         f 'T' = 'A'
         f 'A' = 'U'
+        f _   = undefined
