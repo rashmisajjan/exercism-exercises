@@ -1,7 +1,7 @@
 from collections import Counter
 import re
 
-WORD_REGEX = re.compile("\w+", re.UNICODE)
+WORD_REGEX = re.compile(r"\w+", re.UNICODE)
 
 
 class Phrase(object):
@@ -11,7 +11,7 @@ class Phrase(object):
 
     def words(self):
         """Return a list of the words in the phrase."""
-        return re.findall(WORD_REGEX, self.phrase)
+        return WORD_REGEX.findall(self.phrase)
 
     def word_count(self):
         """Return a dictionary where the keys are the words in the phrase,
