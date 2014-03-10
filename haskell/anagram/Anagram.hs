@@ -9,8 +9,15 @@ import Data.List (sort)
 -- returns the list of those candidates that are anagrams of the word.
 anagramsFor :: String -> [String] -> [String]
 anagramsFor x = filter isAnagramOfX
-  where isAnagramOfX y = let yLower = map toLower y
-                             yChars = sort yLower
-                         in  (yChars == xChars) && (yLower /= xLower)
-        xLower         = map toLower x
-        xChars         = sort xLower
+  where isAnagramOfX y
+          | yChars /= xChars = False  -- must have the same characters
+          | yLower == xLower = False  -- can't just be differently cased
+          | otherwise        = True
+          where yChars = sort yLower
+                yLower = lowerCase y
+        xLower = lowerCase x
+        xChars = sort xLower
+
+
+lowerCase :: String -> String
+lowerCase = map toLower
