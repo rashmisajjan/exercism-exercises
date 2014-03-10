@@ -1,9 +1,10 @@
 module Anagram ( anagramsFor ) where
 
+
 import Data.Char (toLower)
 import Data.List (sort)
 
-------------------------------------------------------------------------------
+
 -- | 'anagramsFor', applied to a word and a list of candidate strings,
 -- returns the list of those candidates that are anagrams of the word.
 anagramsFor :: String -> [String] -> [String]
@@ -12,7 +13,6 @@ anagramsFor x = filter isAnagramOfX
         xChars         = chars x
 
 
-------------------------------------------------------------------------------
 -- | Sorts and normalizes the characters of a string. Two strings can only be
 -- anagrams if 'chars' returns the same for each.
 chars :: String -> String
