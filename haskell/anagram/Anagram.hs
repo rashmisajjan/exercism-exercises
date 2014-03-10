@@ -9,11 +9,8 @@ import Data.List (sort)
 -- returns the list of those candidates that are anagrams of the word.
 anagramsFor :: String -> [String] -> [String]
 anagramsFor x = filter isAnagramOfX
-  where isAnagramOfX y = (chars y == xChars) && (y /= x)
-        xChars         = chars x
-
-
--- | Sorts and normalizes the characters of a string. Two strings can only be
--- anagrams if 'chars' returns the same for each.
-chars :: String -> String
-chars = sort . map toLower
+  where isAnagramOfX y = let yLower = map toLower y
+                             yChars = sort yLower
+                         in  (yChars == xChars) && (yLower /= xLower)
+        xLower         = map toLower x
+        xChars         = sort xLower
