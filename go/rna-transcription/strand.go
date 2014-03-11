@@ -1,16 +1,18 @@
 package strand
 
-func ToRNA(dna string) string {
-        rnaNucleotides := make([]byte, 0, len(dna))
-        for _, dnaNucleotide := range []byte(s) {
-                append(rnaNucleotides, switch dnaNucleotide {
-                                       case 'C': 'G'
-                                       case 'G': 'C'
-                                       case 'A': 'U'
-                                       case 'T': 'A'
-                                       default: dnaNucleotide
-                                       })
-        }
+var dnaToRna = map[byte]byte{
+	'C': 'G',
+	'G': 'C',
+	'A': 'U',
+	'T': 'A',
+}
 
-        return string(rnaNucleotides)
+func ToRna(dna string) string {
+	rnaNucleotides := make([]byte, 0, len(dna))
+	for _, dnaNucleotide := range []byte(dna) {
+		if rnaNucleotide, ok := dnaToRna[dnaNucleotide]; ok {
+			rnaNucleotides = append(rnaNucleotides, rnaNucleotide)
+		}
+	}
+	return string(rnaNucleotides)
 }
