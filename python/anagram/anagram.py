@@ -2,7 +2,8 @@ class Anagram(object):
 
     def __init__(self, word):
         self.word = word
-        self.letters = self.__normalize(word)
+        self._lower = word.lower()
+        self._normalized = self.__normalize(self._lower)
 
     @staticmethod
     def __normalize(word):
@@ -11,8 +12,8 @@ class Anagram(object):
 
     def is_anagram(self, candidate):
         """Check if candidate is an anagram of self.word."""
-        return ((self.__normalize(candidate) == self.letters) and
-                (candidate != self.word))
+        return ((self.__normalize(candidate) == self._normalized) and
+                (candidate.lower() != self._lower))
 
     def match(self, candidates):
         """Return only those candidates that are anagrams of self.word."""
