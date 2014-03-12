@@ -10,8 +10,8 @@ class Phrase(object):
         self.phrase = phrase
 
     def words(self):
-        """Return a list of the words in the phrase."""
-        return WORD_REGEX.findall(self.phrase)
+        """Return an iterator of the words in the phrase."""
+        return (m.group(0) for m in WORD_REGEX.finditer(self.phrase))
 
     def word_count(self):
         """Return a dictionary where the keys are the words in the phrase,
