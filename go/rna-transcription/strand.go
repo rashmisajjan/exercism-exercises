@@ -1,18 +1,24 @@
 package strand
 
-var dnaToRna = map[byte]byte{
-	'C': 'G',
-	'G': 'C',
-	'A': 'U',
-	'T': 'A',
-}
+import "log"
 
 func ToRna(dna string) string {
 	rnaNucleotides := make([]byte, 0, len(dna))
+	var complement byte
 	for _, dnaNucleotide := range []byte(dna) {
-		if rnaNucleotide, ok := dnaToRna[dnaNucleotide]; ok {
-			rnaNucleotides = append(rnaNucleotides, rnaNucleotide)
+		switch dnaNucleotide {
+		case 'C':
+			complement = 'G'
+		case 'G':
+			complement = 'C'
+		case 'A':
+			complement = 'U'
+		case 'T':
+			complement = 'A'
+		default:
+			log.Fatal("Invalid nucleotide")
 		}
+		rnaNucleotides = append(rnaNucleotides, complement)
 	}
 	return string(rnaNucleotides)
 }
