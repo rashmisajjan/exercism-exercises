@@ -1,5 +1,14 @@
 package leap
 
 func IsLeapYear(year int) bool {
-	return year%4 == 0 && (!(year%100 == 0) || year%400 == 0)
+	switch 0 {
+	case year % 400:
+		return true
+	case year % 100:
+		return false
+	case year % 4:
+		return true
+	default:
+		return false
+	}
 }
