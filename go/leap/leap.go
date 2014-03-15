@@ -1,14 +1,10 @@
 package leap
 
+// IsLeapYear determines whether a given year is a leap year or not.
 func IsLeapYear(year int) bool {
-	switch 0 {
-	case year % 400:
-		return true
-	case year % 100:
-		return false
-	case year % 4:
-		return true
-	default:
-		return false
-	}
+    // Return true if the year is divisible by 4 and
+    // either divisible by 400
+    // or not divisible by 100.
+    // Return false otherwise.
+	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
 }
