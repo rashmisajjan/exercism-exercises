@@ -1,21 +1,19 @@
 module WordCount ( wordCount ) where
 
 
-import Data.Char ( isDigit, isLetter, toLower )
-import Data.Map  ( Map, fromListWith )
-import Data.Word ( Word )
+import Data.Char ( isAlphaNum, toLower )
+import Data.Map.Strict  ( Map, fromListWith )
 
 
-wordCount :: String -> Map String Word
+wordCount :: String -> Map String Int
 wordCount = counter . words . map normalize
 
 
-counter :: Ord a => [a] -> Map a Word
+counter :: Ord a => [a] -> Map a Int
 counter = fromListWith (+) . flip zip (repeat 1)
 
 
 normalize :: Char -> Char
 normalize c
-  | isLetter c = toLower c
-  | isDigit c  = c
-  | otherwise  = ' '
+  | isAlphaNum c = toLower c
+  | otherwise    = ' '
