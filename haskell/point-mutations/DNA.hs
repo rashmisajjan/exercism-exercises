@@ -7,4 +7,4 @@ infixr 0 .:
 
 
 hammingDistance :: [Char] -> [Char] -> Int
-hammingDistance = length . filter (uncurry (/=)) .: zip
+hammingDistance = length . filter id .: zipWith (/=)
