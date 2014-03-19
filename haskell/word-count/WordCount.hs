@@ -1,3 +1,5 @@
+{-# LANGUAGE TupleSections #-}
+
 module WordCount ( wordCount ) where
 
 
@@ -10,7 +12,7 @@ wordCount = counter . words . map normalize
 
 
 counter :: Ord a => [a] -> Map a Int
-counter = fromListWith (+) . flip zip (repeat 1)
+counter = fromListWith (+) . map (,1)
 
 
 normalize :: Char -> Char
