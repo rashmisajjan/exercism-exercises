@@ -7,7 +7,6 @@ module Phone
 
 
 import Data.Char ( isDigit )
-import Data.List ( isPrefixOf )
 import Text.Printf ( printf )
 
 
@@ -19,11 +18,8 @@ number :: String -> String
 number = validate . filter isDigit
   where validate phoneNumber = case length phoneNumber of
           10 -> phoneNumber
-          11 -> if "1" `isPrefixOf` phoneNumber
-                    then tail phoneNumber
-                    else zeros
-          _  -> zeros
-          where zeros = replicate 10 '0'
+          11 | head phoneNumber == '1' -> tail phoneNumber
+          _ -> replicate 10 '0'
 
 
 prettyPrint :: String -> String
