@@ -5,7 +5,7 @@ import Data.Char ( toUpper )
 
 
 sing :: Int -> Int -> String
-sing start end = unlines [verse n | n <- [start, start-1..end]]
+sing start end = unlines $ map verse [start, start-1..end]
 
 
 verse :: Int -> String
