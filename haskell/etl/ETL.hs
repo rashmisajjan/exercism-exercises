@@ -6,5 +6,5 @@ import Data.Map.Strict ( Map, fromList, toList )
 type LowerCaseString = String
 
 transform :: Map Int [String] -> Map LowerCaseString Int
-transform = fromList . concatMap go . toList
-  where go (num, strings) = [(map toLower s, num) | s <- strings]
+transform = fromList . go . toList
+  where go xs = [(map toLower y, n) | (n, ys) <- xs, y <- ys]
