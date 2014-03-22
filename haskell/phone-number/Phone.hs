@@ -7,6 +7,7 @@ module Phone
 
 
 import Data.Char ( isDigit )
+import Data.List.Split ( splitPlaces )
 import Text.Printf ( printf )
 
 
@@ -24,6 +25,5 @@ number = validate . filter isDigit
 
 prettyPrint :: String -> String
 prettyPrint = format . number
-  where format digits = let (part1, part2And3) = splitAt 3 digits
-                            (part2, part3)     = splitAt 3 part2And3
+  where format digits = let [part1, part2, part3] = splitPlaces [3, 3, 4] digits
                         in  printf "(%s) %s-%s" part1 part2 part3
