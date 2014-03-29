@@ -52,4 +52,7 @@ fromList :: [[a]] -> Matrix a
 fromList = V.fromList . map V.fromList
 
 fromString :: Read a => String -> Matrix a
-fromString = fromList . map (map read . words) . lines
+fromString = fromList . map readAll . lines
+  where readAll s = case reads s of
+          [] -> []
+          (x, rest) : _ -> x : readAll rest
