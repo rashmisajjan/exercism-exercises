@@ -19,10 +19,10 @@ import qualified Data.Vector as V
 type Matrix a = V.Vector (V.Vector a)
 
 row :: Int -> Matrix a -> V.Vector a
-row ix m = m V.! ix
+row = flip (V.!)
 
 column :: Int -> Matrix a -> V.Vector a
-column ix m = transpose m V.! ix
+column i = row i . transpose
 
 rows :: Matrix a -> Int
 rows = V.length
@@ -34,10 +34,10 @@ shape :: Matrix a -> (Int, Int)
 shape = rows &&& cols
 
 transpose :: Matrix a -> Matrix a
-transpose vv
-  | V.null vv          = V.empty
-  | V.null (V.head vv) = V.empty
-  | otherwise          = V.map V.head vv `V.cons` transpose (V.map V.tail vv)
+transpose m
+  | V.null m          = V.empty
+  | V.null (V.head m) = V.empty
+  | otherwise         = V.map V.head m `V.cons` transpose (V.map V.tail m)
 
 reshape :: (Int, Int) -> Matrix a -> Matrix a
 reshape (r, c) m = go r $ flatten m
