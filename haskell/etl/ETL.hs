@@ -7,4 +7,4 @@ type LowerCaseString = String
 
 transform :: Map Int [String] -> Map LowerCaseString Int
 transform = fromList . go . toList
-  where go xs = [(map toLower y, n) | (n, ys) <- xs, y <- ys]
+  where go xs = [(map toLower s, n) | (n, strings) <- xs, s <- strings]
