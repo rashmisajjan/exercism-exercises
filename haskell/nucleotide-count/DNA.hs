@@ -18,5 +18,5 @@ count nuc strand
   | otherwise      = error $ "invalid nucleotide " ++ show nuc
 
 nucleotideCounts :: [Nucleotide] -> Map Nucleotide Int
-nucleotideCounts = fromListWith (+) . (++ zeros) . map (,1)
+nucleotideCounts = fromListWith (+) . (zeros ++) . map (,1)
  where zeros = map (,0) dna
