@@ -4,8 +4,7 @@ module DNA
     , nucleotideCounts
     ) where
 
-import Data.Monoid ( (<>) )
-import Data.Map.Strict ( Map, (!), fromList, fromListWith )
+import Data.Map.Strict ( Map, (!), fromListWith )
 
 type Nucleotide = Char
 
@@ -19,5 +18,5 @@ count nuc strand
   | otherwise      = error $ "invalid nucleotide " ++ show nuc
 
 nucleotideCounts :: [Nucleotide] -> Map Nucleotide Int
-nucleotideCounts = (<> zeroCounts) . fromListWith (+) . map (,1)
- where zeroCounts = fromList $ map (,0) dna
+nucleotideCounts = fromListWith (+) . (++ zeros) . map (,1)
+ where zeros = map (,0) dna
