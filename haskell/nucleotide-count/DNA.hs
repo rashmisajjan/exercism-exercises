@@ -1,26 +1,23 @@
+{-# LANGUAGE TupleSections #-}
 module DNA
     ( count
     , nucleotideCounts
     ) where
 
-
-import Data.List ( foldl' )
-import Data.Map.Strict ( Map, adjust, fromDistinctAscList, lookup )
-import Data.Maybe ( fromMaybe )
-import Prelude hiding ( lookup )
-
+import Data.Monoid ( (<>) )
+import Data.Map.Strict ( Map, (!), fromList, fromListWith )
 
 type Nucleotide = Char
 
+dna :: [Nucleotide]
+dna = "ACGT"
 
 count :: Nucleotide -> [Nucleotide] -> Int
-count nuc = fromMaybe notFound . lookup nuc . nucleotideCounts
-  where notFound = case nuc of
-          'U' -> 0
-          _   -> error $ "invalid nucleotide " ++ show nuc
-
+count nuc strand 
+  | nuc `elem` dna = nucleotideCounts strand ! nuc
+  | nuc == 'U'     = 0
+  | otherwise      = error $ "invalid nucleotide " ++ show nuc
 
 nucleotideCounts :: [Nucleotide] -> Map Nucleotide Int
-nucleotideCounts = foldl' increment zeroCounts
-  where increment counts nuc = adjust (+1) nuc counts
-        zeroCounts           = fromDistinctAscList [(c, 0) | c <- "ACGT"]
+nucleotideCounts = (<> zeroCounts) . fromListWith (+) . map (,1)
+ where zeroCounts = fromList $ map (,0) dna
