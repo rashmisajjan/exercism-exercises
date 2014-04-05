@@ -16,8 +16,8 @@ row :: Int -> Matrix a -> V.Vector a
 row i (Matrix cells _ nCols) = V.slice (i*nCols) nCols cells
 
 column :: Int -> Matrix a -> V.Vector a
-column j m@(Matrix cells _ nCols) = V.backpermute cells indices
-  where indices = V.fromList [j, (j + nCols) .. (size m - 1)]
+column j (Matrix cells nRows nCols) = V.backpermute cells indices
+  where indices = V.generate nRows (\i -> j + i*nCols)
 
 size :: Matrix a -> Int
 size = V.length . flatten
