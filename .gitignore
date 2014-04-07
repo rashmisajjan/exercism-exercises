@@ -6,3 +6,5 @@
 
 *.hi
 *.o
+
+*.eventlog
