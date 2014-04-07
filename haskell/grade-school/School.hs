@@ -11,8 +11,8 @@ empty :: School
 empty = M.empty
 
 add :: Grade -> Student -> School -> School
-add grade student school = M.insertWith addToClass grade [student] school
-  where addToClass [new] students = sort (new : students)
+add grade' student school = M.insertWith addToClass grade' [student] school
+  where addToClass new students = sort (new ++ students)
 
 grade :: Grade -> School -> [Student]
 grade = M.findWithDefault []
