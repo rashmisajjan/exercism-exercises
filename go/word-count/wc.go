@@ -1,15 +1,15 @@
 package wc
 
 import (
-	"regexp"
 	"strings"
+	"unicode"
 )
-
-var wordRe = regexp.MustCompile(`\w+`)
 
 func WordCount(s string) Histogram {
 	counts := make(Histogram)
-	for _, word := range wordRe.FindAllString(s, -1) {
+	for _, word := range strings.FieldsFunc(s, func(r rune) bool {
+		return !unicode.In(r, unicode.Letter, unicode.Digit)
+	}) {
 		counts[strings.ToLower(word)]++
 	}
 	return counts
