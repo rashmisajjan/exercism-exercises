@@ -1,24 +1,23 @@
 package strand
 
-import "log"
+import (
+	"fmt"
+	"strings"
+)
 
 func ToRna(dna string) string {
-	rnaNucleotides := make([]byte, 0, len(dna))
-	var complement byte
-	for _, dnaNucleotide := range []byte(dna) {
-		switch dnaNucleotide {
+	return strings.Map(func(r rune) rune {
+		switch r {
 		case 'C':
-			complement = 'G'
+			return 'G'
 		case 'G':
-			complement = 'C'
+			return 'C'
 		case 'A':
-			complement = 'U'
+			return 'U'
 		case 'T':
-			complement = 'A'
+			return 'A'
 		default:
-			log.Fatal("Invalid nucleotide")
+			panic(fmt.Sprintf("Invalid nucleotide: %c", r))
 		}
-		rnaNucleotides = append(rnaNucleotides, complement)
-	}
-	return string(rnaNucleotides)
+	}, dna)
 }
