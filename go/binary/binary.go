@@ -1,13 +1,14 @@
 package binary
 
 func ToDecimal(digits string) int {
-	var result int
-	for _, digit := range []byte(digits) {
-		switch digit {
+	result, exponent := 0, uint(len(digits))
+	for _, r := range digits {
+		exponent--
+		switch r {
 		case '0':
-			result *= 2
+			continue
 		case '1':
-			result = 2*result + 1
+			result += 1 << exponent
 		default:
 			return 0
 		}
