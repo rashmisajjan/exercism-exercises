@@ -28,8 +28,7 @@ func Sing() string {
 	return Verses(99, 0)
 }
 
-func bottles(n int) string {
-	var s string
+func bottles(n int) (s string) {
 	switch n {
 	case 0:
 		s = "no more bottles"
@@ -41,8 +40,7 @@ func bottles(n int) string {
 	return s + " of beer"
 }
 
-func takeOrGo(n int) string {
-	var s string
+func takeOrGo(n int) (s string) {
 	switch n {
 	case 0:
 		return "Go to the store and buy some more"
