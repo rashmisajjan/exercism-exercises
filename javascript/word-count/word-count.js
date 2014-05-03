@@ -1,14 +1,9 @@
 var words = module.exports = function(text) {
-
-  var result = {};
-
-  text.toLowerCase().split(/\W+/).filter(Boolean).forEach(function(word) {
-    if (result.hasOwnProperty(word)) {
-      result[word]++;
-    } else {
-      result[word] = 1;
-    }
-  });
-
-  return result;
+  return text
+    .toLowerCase()
+    .match(/\w+/g)
+    .reduce(function(counts, word) {
+      counts.hasOwnProperty(word) ? counts[word]++ : counts[word] = 1;
+      return counts;
+    }, {});
 };
