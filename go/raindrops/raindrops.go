@@ -2,21 +2,19 @@ package raindrops
 
 import "strconv"
 
-func Convert(n int) string {
-	output := ""
-
+func Convert(n int) (s string) {
 	if n%3 == 0 {
-		output += "Pling"
+		s += "Pling"
 	}
 	if n%5 == 0 {
-		output += "Plang"
+		s += "Plang"
 	}
 	if n%7 == 0 {
-		output += "Plong"
+		s += "Plong"
 	}
 
-	if output != "" {
-		return output
+	if s == "" {
+		return strconv.Itoa(n)
 	}
-	return strconv.Itoa(n)
+	return
 }
