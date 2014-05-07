@@ -1,23 +1,14 @@
 package strand
 
-import (
-	"fmt"
-	"strings"
+import "strings"
+
+var transcriber = strings.NewReplacer(
+	"G", "C",
+	"C", "G",
+	"T", "A",
+	"A", "U",
 )
 
-func ToRna(dna string) string {
-	return strings.Map(func(r rune) rune {
-		switch r {
-		case 'C':
-			return 'G'
-		case 'G':
-			return 'C'
-		case 'A':
-			return 'U'
-		case 'T':
-			return 'A'
-		default:
-			panic(fmt.Sprintf("Invalid nucleotide: %c", r))
-		}
-	}, dna)
+func ToRna(s string) string {
+	return transcriber.Replace(s)
 }
