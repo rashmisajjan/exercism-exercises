@@ -1,25 +1,23 @@
 package atbash
 
-import (
-	"bytes"
-	"strings"
-)
+import "bytes"
 
 func Atbash(plain string) string {
-	var buffer, result bytes.Buffer
-	for _, r := range plain {
+	cipher := make([]byte, 0, len(plain)+len(plain)/5)
+	for _, b := range []byte(plain) {
 		switch {
-		case r >= 'a' && r <= 'z':
-			buffer.WriteRune('z' - (r - 'a'))
-		case r >= 'A' && r <= 'Z':
-			buffer.WriteRune('z' - (r - 'A'))
-		case r >= '0' && r <= '9':
-			buffer.WriteRune(r)
+		case b >= 'a' && b <= 'z':
+			cipher = append(cipher, 'z'-b+'a')
+		case b >= 'A' && b <= 'Z':
+			cipher = append(cipher, 'z'-b+'A')
+		case b >= '0' && b <= '9':
+			cipher = append(cipher, b)
+		default:
+			continue
+		}
+		if len(cipher)%6 == 5 {
+			cipher = append(cipher, ' ')
 		}
 	}
-	for buffer.Len() > 0 {
-		result.Write(buffer.Next(5))
-		result.WriteByte(' ')
-	}
-	return strings.TrimSpace(result.String())
+	return string(bytes.TrimSuffix(cipher, []byte{' '}))
 }
