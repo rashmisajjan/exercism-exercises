@@ -5,9 +5,7 @@ checkDigit = (`rem` 10)
 
 addends :: Integer -> [Integer]
 addends = reverse . addends' . revDigits
-  where addends' []       = []
-        addends' [x]      = [x]
-        addends' (x:y:ys) = x : double' y : addends' ys
+  where addends' = zipWith ($) (cycle [id, double'])
         double' x | x > 4     = 2 * x - 9
                   | otherwise = 2 * x
 
