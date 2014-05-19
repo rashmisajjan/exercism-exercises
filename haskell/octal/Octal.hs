@@ -7,7 +7,7 @@ showOct n | n < 8 = show n
 
 readOct :: Integral a => String -> a
 readOct = foldl1 f . map octalDigitToIntegral
-  where f acc n = 8*acc + n
+  where f acc n = acc `seq` 8*acc + n
 
 octalDigitToIntegral :: Integral a => Char -> a
 octalDigitToIntegral digit = case digit of
