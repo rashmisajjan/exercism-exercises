@@ -1,6 +1,9 @@
 package romannumerals
 
-import "bytes"
+import (
+	"bytes"
+	"fmt"
+)
 
 type numeral struct {
 	value          int
@@ -23,12 +26,17 @@ var romanNumerals = []numeral{
 	numeral{1, "I"},
 }
 
-func ToRomanNumeral(n int) string {
+// ToRomanNumeral converts an int n into a roman numeral.
+// If n is less than 1 or greater than 3999, a non-nil error is returned.
+func ToRomanNumeral(n int) (string, error) {
+	if n < 1 || n >= 4000 {
+		return "", fmt.Errorf("%d can't be represented as a roman numeral", n)
+	}
 	var buffer bytes.Buffer
 	for _, r := range romanNumerals {
 		for ; n >= r.value; n -= r.value {
 			buffer.WriteString(r.representation)
 		}
 	}
-	return buffer.String()
+	return buffer.String(), nil
 }
