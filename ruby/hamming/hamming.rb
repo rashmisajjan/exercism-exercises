@@ -1,12 +1,7 @@
 class Hamming
   def self.compute(strand_a, strand_b)
-    pairs = strand_a.split("").zip(strand_b.split(""))
-    pairs.map(&:compact).map(&:same_values?).count(false)
-  end
-end
-
-class Array
-  def same_values?
-    self.all? {|x| x == self[0]}
+    (0...[strand_a.length, strand_b.length].min).count do |i|
+      strand_a[i] != strand_b[i]
+    end
   end
 end
