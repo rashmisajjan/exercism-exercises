@@ -2,11 +2,15 @@ package octal
 
 import "fmt"
 
-func ToDecimal(s string) int64 {
-	var result int64
-	if _, err := fmt.Sscanf(s, "%o", &result); err != nil {
-		return 0
-	} else {
-		return result
+func ParseOctal(s string) (int64, error) {
+	var n int64
+	for i := 0; i < len(s); i++ {
+		d := s[i]
+		if '0' <= d && d <= '7' {
+			n = 8*n + int64(d-'0')
+		} else {
+			return 0, fmt.Errorf("octal.ParseOctal(%q): invalid digit %q", s, d)
+		}
 	}
+	return n, nil
 }
