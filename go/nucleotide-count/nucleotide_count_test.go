@@ -22,18 +22,18 @@ func (h Histogram) sameMappings(o Histogram) (res bool) {
 
 var tallyTests = []struct {
 	strand     string
-	nucleotide string
+	nucleotide byte
 	expected   int
 }{
-	{"", "A", 0},
-	{"ACT", "G", 0},
-	{"CCCCC", "C", 5},
-	{"GGGGGTAACCCGG", "T", 1},
+	{"", 'A', 0},
+	{"ACT", 'G', 0},
+	{"CCCCC", 'C', 5},
+	{"GGGGGTAACCCGG", 'T', 1},
 }
 
 func TestNucleotideCounts(t *testing.T) {
 	for _, tt := range tallyTests {
-		dna := DNA{tt.strand}
+		dna := DNA(tt.strand)
 		count, _ := dna.Count(tt.nucleotide)
 		if count != tt.expected {
 			t.Fatalf("Got \"%v\", expected \"%v\"", count, tt.expected)
@@ -42,8 +42,8 @@ func TestNucleotideCounts(t *testing.T) {
 }
 
 func TestHasErrorForInvalidNucleotides(t *testing.T) {
-	dna := DNA{"GATTACA"}
-	count, err := dna.Count("X")
+	dna := DNA("GATTACA")
+	count, err := dna.Count('X')
 	if count != 0 {
 		t.Fatalf("Got \"%v\", expected \"%v\"", count, 0)
 	}
@@ -56,9 +56,9 @@ func TestHasErrorForInvalidNucleotides(t *testing.T) {
 // Very occasionally it matters.
 // Just roll with it.
 func TestCountingDoesntChangeCount(t *testing.T) {
-	dna := DNA{"CGATTGGG"}
-	dna.Count("T")
-	count, _ := dna.Count("T")
+	dna := DNA("CGATTGGG")
+	dna.Count('T')
+	count, _ := dna.Count('T')
 	if count != 2 {
 		t.Fatalf("Got \"%v\", expected \"%v\"", count, 2)
 	}
@@ -72,21 +72,21 @@ type histogramTest struct {
 var histogramTests = []histogramTest{
 	{
 		"",
-		Histogram{"A": 0, "C": 0, "T": 0, "G": 0},
+		Histogram{'A': 0, 'C': 0, 'T': 0, 'G': 0},
 	},
 	{
 		"GGGGGGGG",
-		Histogram{"A": 0, "C": 0, "T": 0, "G": 8},
+		Histogram{'A': 0, 'C': 0, 'T': 0, 'G': 8},
 	},
 	{
 		"AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC",
-		Histogram{"A": 20, "C": 12, "T": 21, "G": 17},
+		Histogram{'A': 20, 'C': 12, 'T': 21, 'G': 17},
 	},
 }
 
 func TestSequenceHistograms(t *testing.T) {
 	for _, tt := range histogramTests {
-		dna := DNA{tt.strand}
+		dna := DNA(tt.strand)
 		if !dna.Counts().Equal(tt.expected) {
 			t.Fatalf("DNA{ \"%v\" }: Got \"%v\", expected \"%v\"", tt.strand, dna.Counts(), tt.expected)
 		}
@@ -97,7 +97,7 @@ func BenchmarkSequenceHistograms(b *testing.B) {
 	b.StopTimer()
 	for _, tt := range histogramTests {
 		for i := 0; i < b.N; i++ {
-			dna := DNA{tt.strand}
+			dna := DNA(tt.strand)
 			b.StartTimer()
 
 			dna.Counts()

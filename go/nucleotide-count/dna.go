@@ -2,34 +2,24 @@ package dna
 
 import "fmt"
 
-type DNA struct {
-	strand string
-}
+type DNA string
 
-type Histogram map[string]int
+type Histogram map[byte]int
 
-type dnaCountError struct {
-	badNucleotide string
-}
-
-func (e dnaCountError) Error() string {
-	return fmt.Sprintf("%s isn't a valid nucleotide", e.badNucleotide)
-}
-
-func (dna *DNA) Counts() Histogram {
-	h := Histogram{"A": 0, "C": 0, "T": 0, "G": 0}
-	for _, n := range dna.strand {
-		h[string(n)]++
+func (dna DNA) Counts() Histogram {
+	h := Histogram{'A': 0, 'C': 0, 'T': 0, 'G': 0}
+	for i := 0; i < len(dna); i++ {
+		h[dna[i]]++
 	}
 	return h
 }
 
-func (dna *DNA) Count(nucleotide string) (int, error) {
-	if count, ok := dna.Counts()[nucleotide]; ok {
+func (dna DNA) Count(n byte) (int, error) {
+	if count, ok := dna.Counts()[n]; ok {
 		return count, nil
-	} else if nucleotide == "U" {
+	} else if n == 'U' {
 		return 0, nil
 	} else {
-		return 0, dnaCountError{nucleotide}
+		return 0, fmt.Errorf("%[1]q.Count(%[2]q): invalid nucleotide %[2]q", dna, n)
 	}
 }
