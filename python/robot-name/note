@@ -1,0 +1,5 @@
+* The tests also accept the following names:
+  - "12345"
+  - "AB123xyz"
+
+  -> Should be improved
