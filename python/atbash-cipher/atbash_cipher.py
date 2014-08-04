@@ -1,7 +1,6 @@
-from string import ascii_lowercase, digits
+from string import ascii_lowercase
 
-ENCODING = str.maketrans(ascii_lowercase + digits,
-                         ascii_lowercase[::-1] + digits)
+ENCODING = str.maketrans(ascii_lowercase, ascii_lowercase[::-1])
 
 
 def encode(text):
