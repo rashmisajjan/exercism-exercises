@@ -1,16 +1,14 @@
-class Anagram(object):
-
+class Anagram:
     def __init__(self, word):
-        self.word = word
-        self._lower = word.lower()
-        self._signature = sorted(self._lower)
+        self.word = word.lower()
+        self.chars = sorted(self.word)
 
     def is_anagram_to(self, other):
-        """Check if self and other are anagrams."""
-        return ((other._signature == self._signature) and
-                (other._lower != self._lower))
+        return self.chars == other.chars and self.word != other.word
 
-    def match(self, candidate_words):
-        """Return only those candidate words that are anagrams of self.word."""
-        candidate_anagrams = (Anagram(c) for c in candidate_words)
-        return [a.word for a in candidate_anagrams if self.is_anagram_to(a)]
+
+def detect_anagrams(word, candidates):
+    reference = Anagram(word)
+    return [candidate
+            for candidate in candidates
+            if Anagram(candidate).is_anagram_to(reference)]
