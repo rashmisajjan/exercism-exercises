@@ -1,6 +1,6 @@
 module Allergies where
 
-import Data.Bits ((.&.), unsafeShiftL)
+import Data.Bits (testBit)
 
 data Allergen = Eggs
               | Peanuts
@@ -18,4 +18,4 @@ allergies :: Score -> [Allergen]
 allergies score = filter (`isAllergicTo` score) [Eggs ..]
 
 isAllergicTo :: Allergen -> Score -> Bool
-isAllergicTo allergen score = score .&. (1 `unsafeShiftL` fromEnum allergen) > 0
+isAllergicTo allergen score = score `testBit` fromEnum allergen
