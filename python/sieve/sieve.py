@@ -1,28 +1,25 @@
+from itertools import count, takewhile
+from math import ceil, sqrt
+
+
 def sieve(limit):
     sieve_ = [True] * limit
-    primes = []
+    sieve_[0] = sieve_[1] = False
+    check_limit = ceil(sqrt(limit))
 
-    def mark(n):
-        primes.append(n)
-        for i in range(n * n, limit, n):
-            sieve_[i] = False
-
-    for n in _prime_candidates(limit):
+    for n in takewhile(lambda x: x < check_limit, _prime_candidates()):
         if sieve_[n]:  # n is prime
-            mark(n)
+            for i in range(n * n, limit, n):
+                sieve_[i] = False
 
-    return primes
+    return [i
+            for i, is_prime in enumerate(sieve_)
+            if is_prime]
 
 
-def _prime_candidates(limit):
-    if limit > 2:
-        yield 2
-    if limit > 3:
-        yield 3
-    for n in range(6, limit - 1, 6):
+def _prime_candidates():
+    yield 2
+    yield 3
+    for n in count(6, 6):
         yield n - 1
         yield n + 1
-
-    rem = limit % 6
-    if rem < 2:
-        yield limit - rem - 1
