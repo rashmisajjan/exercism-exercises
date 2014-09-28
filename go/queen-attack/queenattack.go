@@ -4,16 +4,16 @@ import "fmt"
 
 func fileAndRank(pos string) (file, rank byte, err error) {
 	if len(pos) != 2 {
-		return 0, 0, fmt.Errorf("bad input length", pos)
+		return 0, 0, fmt.Errorf("bad input length")
 	}
 	file, rank = pos[0], pos[1]
 	if file < 'a' || file > 'h' {
-		return 0, 0, fmt.Errorf("invalid file: %q", pos, file)
+		return 0, 0, fmt.Errorf("invalid file: %q", file)
 	}
 	if rank < '1' || rank > '8' {
-		return 0, 0, fmt.Errorf("invalid rank: %q", pos, rank)
+		return 0, 0, fmt.Errorf("invalid rank: %q", rank)
 	}
-	return
+	return file, rank, nil
 }
 
 func absDiff(x, y uint8) uint8 {
@@ -27,7 +27,7 @@ func absDiff(x, y uint8) uint8 {
 // each other. The positions of the two queens, pos1 and pos2, must be given
 // in algebraic notation, i.e. a1 to h8.
 // If an argument can't be parsed, an error is returned.
-func CanQueenAttack(pos1, pos2 string) (b bool, err error) {
+func CanQueenAttack(pos1, pos2 string) (bool, error) {
 	file1, rank1, err := fileAndRank(pos1)
 	if err != nil {
 		return false, fmt.Errorf("CanQueenAttack(%q, %q): bad position %q: %s",
