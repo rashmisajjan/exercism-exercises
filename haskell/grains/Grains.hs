@@ -1,9 +1,10 @@
 module Grains where
 
-import Data.Bits (shiftL)
+nFields :: Int
+nFields = 64
 
-square :: Int -> Integer
-square = shiftL 1 . pred
+square :: Integral a => a -> Integer
+square n = 2 ^ (n - 1)
 
 total :: Integer
-total = 1 `shiftL` 64 - 1
+total = 2 ^ nFields - 1
