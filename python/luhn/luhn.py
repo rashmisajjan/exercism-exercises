@@ -1,4 +1,5 @@
-class Luhn(object):
+class Luhn:
+
     def __init__(self, number):
         self.number = number
 
@@ -21,13 +22,5 @@ class Luhn(object):
 
 
 def digits(n):
-    """Return a the digits of a non-negative integer as a list of ints."""
-    if n < 10:
-        return [n]
-
-    result = []
-    while n >= 10:
-        n, rem = divmod(n, 10)
-        result.append(rem)
-    result.append(n)
-    return result[::-1]
+    """Return the digits of a non-negative integer as a list of ints."""
+    return [int(d) for d in str(n)]
