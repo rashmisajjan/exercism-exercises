@@ -10,3 +10,10 @@
 *.eventlog
 
 *.beam
+*.dump
+edoc-info
+
+*.css
+*.html
+*.png
+
